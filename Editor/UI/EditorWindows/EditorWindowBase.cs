@@ -16,25 +16,26 @@ namespace ReadyPlayerMe.Core.Editor
 
         protected GUIStyle HeadingStyle;
         protected GUIStyle DescriptionStyle;
-        
+
         protected Texture errorIcon;
 
         private GUIStyle webButtonStyle;
-
-        private readonly GUILayoutOption windowWidth = GUILayout.Width(460);
+        protected const float WIDTH = 460;
+        private readonly GUILayoutOption windowWidth = GUILayout.Width(WIDTH);
         protected readonly float ButtonHeight = 30f;
         private Banner banner;
         private Footer footer;
 
         private string editorWindowName;
         private bool windowResized;
+        private readonly Color descriptionColor = new Color(0.7f, 0.7f, 0.7f, 1.0f);
 
         private void LoadAssets()
         {
             banner ??= new Banner();
-            
+
             footer ??= new Footer(editorWindowName);
-            
+
             if (errorIcon == null)
             {
                 var assetGuid = AssetDatabase.FindAssets(ERROR_ICON_SEARCH_FILTER).FirstOrDefault();
@@ -66,7 +67,7 @@ namespace ReadyPlayerMe.Core.Editor
                 margin = new RectOffset(5, 0, 0, 0),
                 normal =
                 {
-                    textColor = new Color(0.7f, 0.7f, 0.7f, 1.0f)
+                    textColor = descriptionColor
                 }
             };
 
@@ -115,7 +116,7 @@ namespace ReadyPlayerMe.Core.Editor
             var height = GUILayoutUtility.GetLastRect().height;
             if (!windowResized && height > 1)
             {
-                minSize = maxSize = new Vector2(460, height);
+                minSize = maxSize = new Vector2(WIDTH, height);
                 windowResized = true;
             }
         }
